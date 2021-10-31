@@ -9,3 +9,7 @@
 char	*get_next_line(int fd);
 
 #endif
+
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 32
+#endif
