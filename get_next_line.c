@@ -6,11 +6,21 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 20:07:12 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/03 14:04:38 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/03 18:31:42 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int	until_eol(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\n')
+		i++;
+	return (i);
+}
 
 char	*get_next_line(int fd)
 {
@@ -29,6 +39,7 @@ char	*get_next_line(int fd)
 	}
 	if (!restant)
 		restant = ft_strdup("");
+	
 }
 
 int	main(void)
