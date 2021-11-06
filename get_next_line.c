@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 20:07:12 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/06 17:09:04 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/06 20:24:28 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int	until_eol(char *str)
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;
-	static char	*restant;
+	char		*buffer; // Va avoir BUFFER_SIZE de char
+	static char	*restant; // Va etre utilise quand on rappel la fonction
+	char		*line; // String du debut de la ligne jusqu'au \n qui va etre return !!
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -48,6 +49,7 @@ char	*first_line(char *str)
 	char	*line;
 
 	i = 0;
+	line = malloc(sizeof(char) * until_eol(str) + 1);
 	while (i <= until_eol(str))
 	{
 		line[i] = str[i];
