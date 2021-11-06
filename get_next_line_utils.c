@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 17:12:38 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/03 14:43:11 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/06 17:01:22 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dest;
 	int		i;
@@ -69,4 +68,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	dest[i] = '\0';
 	return (dest);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (NULL);
 }

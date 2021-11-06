@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 20:07:12 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/03 18:35:44 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/06 17:09:04 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ int	until_eol(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\n')
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (i);
 		i++;
+	}
 	return (i);
 }
 
@@ -29,28 +33,45 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = ((char *) malloc((BUFFER_SIZE + 1) * sizeof(char))); // fou le int de malloc dans une char ?
+	buffer = ((char *) malloc((BUFFER_SIZE + 1) * sizeof(char)));
 	if (!buffer)
 		return (NULL);
-	
+	buffer = read(fd, buffer, BUFFER_SIZE);
+	if (!restant)
+		return (first_line(buffer));
+	restant = malloc(sizeof(char) * until_eol(buffer) + 1);
 }
 
-int	main(void)
+char	*first_line(char *str)
 {
-	int fd = open ("test", O_RDONLY);
-	get_next_line(fd);
+	int		i;
+	char	*line;
+
+	i = 0;
+	while (i <= until_eol(str))
+	{
+		line[i] = str[i];
+		i++;
+	}
+	return (line);
 }
 
 // int	main(void)
 // {
-// 	int		i = 0;
-// 	int		fd = open("test", O_RDONLY);
-// 	char	*str;
-	
-// 	while ((str = get_next_line(fd)) != NULL)
-// 	{
-// 		printf("%s", str);
-// 		i++;
-// 		free(str);
-// 	}
+// 	int fd = open ("test", O_RDONLY);
+// 	get_next_line(fd);
 // }
+
+int	main(void)
+{
+	int		i = 0;
+	int		fd = open("test", O_RDONLY);
+	char	*str;
+	
+	while ((str = get_next_line(fd)) != NULL)
+	{
+		printf("%s", str);
+		i++;
+		free(str);
+	}
+}
