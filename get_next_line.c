@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 20:07:12 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/06 21:55:56 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/10 16:04:54 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,21 @@ int	until_eol(char *str)
 	return (i);
 }
 
+char	*first_line(char *str)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	line = malloc(sizeof(char) * until_eol(str) + 1);
+	while (i <= until_eol(str))
+	{
+		line[i] = str[i];
+		i++;
+	}
+	return (line);
+}
+
 char	*get_next_line(int fd)
 {
 	char		*buffer;	// Va avoir un BUFFER_SIZE de char
@@ -43,26 +58,6 @@ char	*get_next_line(int fd)
 	restant = malloc(sizeof(char) * until_eol(buffer) + 1);
 }
 
-char	*first_line(char *str)
-{
-	int		i;
-	char	*line;
-
-	i = 0;
-	line = malloc(sizeof(char) * until_eol(str) + 1);
-	while (i <= until_eol(str))
-	{
-		line[i] = str[i];
-		i++;
-	}
-	return (line);
-}
-
-// int	main(void)
-// {
-// 	int fd = open ("test", O_RDONLY);
-// 	get_next_line(fd);
-// }
 
 int	main(void)
 {
@@ -77,3 +72,10 @@ int	main(void)
 		free(str);
 	}
 }
+
+
+// int	main(void)
+// {
+// 	int fd = open ("test", O_RDONLY);
+// 	get_next_line(fd);
+// }
