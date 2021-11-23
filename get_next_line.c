@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/26 20:07:12 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/10 16:04:54 by ngobert          ###   ########.fr       */
+/*   Created: 2021/11/22 11:39:23 by ngobert           #+#    #+#             */
+/*   Updated: 2021/11/22 11:39:23 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "get_next_line.h"
 
@@ -24,21 +25,6 @@ int	until_eol(char *str)
 		i++;
 	}
 	return (i);
-}
-
-char	*first_line(char *str)
-{
-	int		i;
-	char	*line;
-
-	i = 0;
-	line = malloc(sizeof(char) * until_eol(str) + 1);
-	while (i <= until_eol(str))
-	{
-		line[i] = str[i];
-		i++;
-	}
-	return (line);
 }
 
 char	*get_next_line(int fd)
