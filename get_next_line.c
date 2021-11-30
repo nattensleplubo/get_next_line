@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:39:23 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/30 15:58:50 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/30 16:11:08 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*get_next_line(int fd)
 		buffer[ret_val] = '\0';
 		statique[fd] = ft_strjoin(statique[fd], buffer);
 	}
+	return (line);
 }
 
 int	main(void)
