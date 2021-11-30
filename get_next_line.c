@@ -6,44 +6,51 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:39:23 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/23 10:24:56 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/30 15:58:50 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "get_next_line.h"
 
-int	until_eol(char *str)
+int	check_eol(char *statique)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (!statique)
+		return (0);
+	while (statique[i])
 	{
-		if (str[i] == '\n')
-			return (i);
+		if (statique[i] == '\n')
+			return (1);
 		i++;
 	}
-	return (i);
+	return (0);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*buffer;	// Va avoir un BUFFER_SIZE de char
-	static char	*restant;	// Va etre utilise quand on rappel la fonction
-	char		*line;		// String du debut de la ligne jusqu'au \n qui va etre return !!
+	char		*buffer;			// Va avoir un BUFFER_SIZE de char
+	static char	*statique = NULL;	// Va etre utilise quand on rappel la fonction
+	char		*line;				// String du debut de la ligne jusqu'au \n qui va etre return !!
+	int			ret_val;			// Pour la return value du read
 
+	ret_val = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = ((char *) malloc((BUFFER_SIZE + 1) * sizeof(char)));
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
-	buffer = read(fd, buffer, BUFFER_SIZE);
-	if (!restant)
-		restant = ft_strdup("");
-	restant = malloc(sizeof(char) * until_eol(buffer) + 1);
+	while (check_eol(statique) && ret_val != 0)
+	{
+		ret_val = read(fd, buffer, BUFFER_SIZE);
+		if (ret_val == -1)
+			return (ft_free(buffer));
+		buffer[ret_val] = '\0';
+		statique[fd] = ft_strjoin(statique[fd], buffer);
+	}
 }
-
 
 int	main(void)
 {
@@ -58,10 +65,3 @@ int	main(void)
 		free(str);
 	}
 }
-
-
-// int	main(void)
-// {
-// 	int fd = open ("test", O_RDONLY);
-// 	get_next_line(fd);
-// }

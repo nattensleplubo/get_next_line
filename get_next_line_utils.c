@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 17:12:38 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/10 16:08:06 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/30 15:59:47 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,12 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_free(char *str)
 {
-	char	*dest;
-	int		i;
-	int		j;
-
-	i = 0;
-	while (s1[i])
-		i++;
-	dest = malloc(sizeof(char) * i + 1);
-	if (dest == NULL)
-		return (NULL);
-	j = 0;
-	while (s1[j])
-	{
-		dest[j] = s1[j];
-		j++;
-	}
-	dest[j] = '\0';
-	return (dest);
+	free(str);
+	return (0);
 }
+
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -70,18 +55,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (dest);
 }
 
-char	*ft_strchr(const char *s, int c)
+int	ft_is_newline(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if ((char)c == '\0')
-		return ((char *)s);
-	return (NULL);
+	if (str[0] == '\n')
+		return (1);
+	return (0);
 }
