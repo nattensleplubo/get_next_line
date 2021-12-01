@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:39:23 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/30 16:11:08 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/12/01 15:11:42 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,26 @@ int	check_eol(char *statique)
 char	*get_next_line(int fd)
 {
 	char		*buffer;			// Va avoir un BUFFER_SIZE de char
-	static char	*statique = NULL;	// Va etre utilise quand on rappel la fonction
+	// static char	*statique = NULL;	// Va etre utilise quand on rappel la fonction
 	char		*line;				// String du debut de la ligne jusqu'au \n qui va etre return !!
 	int			ret_val;			// Pour la return value du read
 
 	ret_val = 1;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0) // Check si fd et buffer_size sont bon
 		return (NULL);
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1)); // Malloc un buffer
 	if (!buffer)
 		return (NULL);
-	while (check_eol(statique) && ret_val != 0)
+	while (check_eol(buffer) && ret_val != 0) // tant que ya pas de \n
 	{
+		printf("%d", ret_val);
 		ret_val = read(fd, buffer, BUFFER_SIZE);
-		if (ret_val == -1)
-			return (ft_free(buffer));
+		printf("%s", buffer);
+		printf("%d", ret_val);
 		buffer[ret_val] = '\0';
-		statique[fd] = ft_strjoin(statique[fd], buffer);
+		line = ft_strjoin(line, buffer);
+		printf("%s", line);
+		free(buffer);
 	}
 	return (line);
 }
