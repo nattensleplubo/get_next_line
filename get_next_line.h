@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 17:01:52 by ngobert           #+#    #+#             */
-/*   Updated: 2021/12/02 10:04:59 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/12/02 12:05:23 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <limits.h>
 
+int	ft_check_nl(char *str);
 size_t	ft_strlen(char *str);
 char	*ft_free(char *str);
 char	*ft_strjoin(char *s1, char *s2);

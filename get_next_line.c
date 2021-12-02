@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:39:23 by ngobert           #+#    #+#             */
-/*   Updated: 2021/12/02 11:26:21 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/12/02 12:12:20 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ char	*ft_returnline(char	*statique)
 	char	*returnline;
 
 	i = 0;
-	if (!statique)
+	if (!statique || !statique[0])
 		return (NULL);
 	while (statique[i] && statique[i] != '\n')
 		i++;
+	i += ft_check_nl(&statique[i]);
 	returnline = malloc(sizeof(char) * (i + 1));
 	if (!returnline)
 		return (NULL);
@@ -65,16 +66,19 @@ char	*ft_new_static(char *statique)
 
 	i = 0;
 	j = 0;
-	if (statique = NULL)
+	if (statique == NULL)
 		return (NULL);
 	while (statique[i] && statique[i] != '\n')
 		i++;
+	if (statique[i] == '\0')
+		return (ft_free(statique));
+	i += ft_check_nl(&statique[i]);
 	new_static = malloc(sizeof(char) * (ft_strlen(statique) - i + 1));
 	if (!new_static)
 		return (NULL);
 	while (statique[i])
 		new_static[j++] = statique[i++];
-	new_static[j] = '\n';
+	new_static[j] = '\0';
 	free(statique);
 	statique = NULL;
 	return (new_static);
@@ -83,9 +87,9 @@ char	*ft_new_static(char *statique)
 char	*get_next_line(int fd)
 {
 	char		*buffer;								// Va avoir un BUFFER_SIZE de char
-	static char	*statique = NULL;						// Va etre utilise quand on rappel la fonction
+	static char	*statique[OPEN_MAX];						// Va etre utilise quand on rappel la fonction
 	char		*line;									// String du debut de la ligne jusqu'au \n qui va etre return !!
-	size_t		ret_val;								// Pour la return value du read
+	int			ret_val;								// Pour la return value du read
 
 	ret_val = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)						// Check si fd et buffer_size sont bon
@@ -93,18 +97,17 @@ char	*get_next_line(int fd)
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));	// Malloc un buffer
 	if (!buffer)
 		return (NULL);
-	ret_val = read(fd, buffer, BUFFER_SIZE);
-	printf("%zu", ret_val);
-	while (!check_eol(buffer) && ret_val != 0)			// tant que ya pas de \n
+	while (!check_eol(statique[fd]) && ret_val != 0)			// tant que ya pas de \n
 	{
 		ret_val = read(fd, buffer, BUFFER_SIZE);
-		buffer[ret_val] = '\0';
 		if (ret_val == -1)
 			return (ft_free(buffer));
-		statique = ft_strjoin(statique, buffer);
+		buffer[ret_val] = '\0';
+		statique[fd] = ft_strjoin(statique[fd], buffer);
 	}
 	free(buffer);
-	line = ft_returnline(statique);
+	line = ft_returnline(statique[fd]);
+	statique[fd] = ft_new_static(statique[fd]);
 	return (line);
 }
 
