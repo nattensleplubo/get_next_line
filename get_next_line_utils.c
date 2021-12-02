@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 17:12:38 by ngobert           #+#    #+#             */
-/*   Updated: 2021/12/01 13:29:32 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/12/02 11:30:35 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,18 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
+int	ft_check_nl(char *str)
+{
+	if (str[0] == '\n')
+		return (1);
+	return (0);
+}
+
 char	*ft_free(char *str)
 {
 	free(str);
 	return (0);
 }
-
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -59,20 +65,20 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (dest);
 }
 
-char	*ft_strchr(char *s, int c)
-{
-	int	i;
+// char	*ft_strchr(char *s, int c)
+// {
+// 	int	i;
 
-	i = 0;
-	if (!s)
-		return (0);
-	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
-	while (s[i] != '\0')
-	{
-		if (s[i] == (char) c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	if (!s)
+// 		return (0);
+// 	if (c == '\0')
+// 		return ((char *)&s[ft_strlen(s)]);
+// 	while (s[i] != '\0')
+// 	{
+// 		if (s[i] == (char) c)
+// 			return ((char *)&s[i]);
+// 		i++;
+// 	}
+// 	return (0);
+// }
