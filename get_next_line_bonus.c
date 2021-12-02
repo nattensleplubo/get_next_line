@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 11:39:23 by ngobert           #+#    #+#             */
-/*   Updated: 2021/12/02 13:10:22 by ngobert          ###   ########.fr       */
+/*   Created: 2021/12/02 12:56:00 by ngobert           #+#    #+#             */
+/*   Updated: 2021/12/02 12:56:32 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	check_eol(char *statique)
 {
